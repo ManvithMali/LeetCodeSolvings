@@ -1,18 +1,14 @@
 class Solution {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
-        
+    public boolean canFinish(int numCourses, int[][] prerequisites) {        
         Map <Integer , List<Integer>> hm = new HashMap<>();
         int[] courseCount = new int[numCourses];
         for (int []i : prerequisites){
             int start = i[0];
             int end = i [1];
-            courseCount[start]++;
-            
+            courseCount[start]++;            
             hm.putIfAbsent(end, new ArrayList());
             hm.get(end).add(start);            
-        }
-        
-        
+        }                
         Queue<Integer> que = new LinkedList<>();
         for (int i =0; i < numCourses ; i++){
             if(courseCount[i]==0)
@@ -29,15 +25,11 @@ class Solution {
                 for (int num : hm.get(i)){
                     if(--courseCount[num]==0){
                         que.add(num);
-                    }
-                    
+                    }                    
                 }
                 hm.remove(i);
-            }
-            
-        }
-        
-        return hm.size()==0;
-        
+            }            
+        }        
+        return hm.size()==0;        
     }
 }
