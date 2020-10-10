@@ -1,0 +1,39 @@
+class Solution {
+    public String shortestPalindrome(String s) {
+                
+        StringBuilder sb = new StringBuilder(s);
+        StringBuilder rsb = new StringBuilder(s).reverse(); 
+        
+        sb.append('#').append(rsb);
+        int val =kmpForm(sb.toString());
+        return new StringBuilder(s.substring(val)).reverse().toString()+s;  
+    }
+    
+    public int kmpForm(String s){
+        
+        int len = s.length();
+        int ptr =1;
+        int rptr =0;        
+        int[] kmp = new int[len];        
+        kmp[0]=0;                
+        while(ptr < len){
+            
+            if(s.charAt(ptr)==s.charAt(rptr)){
+                rptr++;
+                kmp[ptr]=rptr;
+                ptr++;
+            }else{
+                if(rptr!=0){
+                    rptr= kmp[rptr-1];
+                }else{
+                    kmp[ptr]=0;
+                    ptr++;
+                }
+                
+            }
+        }
+        return kmp[len-1];
+        
+    }
+    
+}
