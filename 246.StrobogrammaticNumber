@@ -1,0 +1,21 @@
+class Solution {
+    public boolean isStrobogrammatic(String num) {
+        
+        Map <Character, Character> st = new HashMap();
+        st.put('1', '1');
+        st.put('6','9');
+        st.put('8','8');
+        st.put('9','6');
+        st.put('0','0');        
+        StringBuilder sb = new StringBuilder();
+        for (char c : num.toCharArray())
+        {
+            if (!st.containsKey(c))
+                return false;
+            else
+                sb.append(st.get(c));
+        }
+        
+        return num.equals(sb.reverse().toString());
+    }
+}
