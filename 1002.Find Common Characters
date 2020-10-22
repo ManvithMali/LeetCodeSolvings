@@ -1,0 +1,25 @@
+class Solution {
+    public List<String> commonChars(String[] A) {
+        
+        int[][] charCount = new int[A.length][26];        
+        for(int i =0; i < A.length ; i++){
+            for (char c : A[i].toCharArray()){                
+                charCount[i][c-'a']++;                    
+            }            
+        }
+        
+        List<String> res = new ArrayList<>();
+        
+        for (int i =0 ; i < 26; i++){
+            int min = Integer.MAX_VALUE;            
+            for (int j =0; j < A.length ;j++){                
+                min = Math.min(min, charCount[j][i]);                
+            }
+            
+            for (int k =0; k< min ; k++ ){
+                res.add(Character.toString('a'+i));   
+            }
+        }
+       return res;
+    }
+}
