@@ -1,0 +1,53 @@
+class Solution {    
+    
+    Map <Integer,List<TripDetails>> tripMap;    
+    
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        tripMapPublish(flights);        
+        
+        PriorityQueue<TripDetails> heap = new PriorityQueue<>(flights.length,(td1,td2) -> td1.cost - td2.cost);
+        
+        heap.addAll(tripMap.getOrDefault(src,new ArrayList<>()));     
+        
+        while (!heap.isEmpty()){
+            TripDetails lst = heap.poll();            
+            if (lst.dest == dst)
+                return lst.cost; 
+            
+            if (lst.stops >= K)
+            {   
+                continue;
+            }           
+            for (TripDetails tripDetail : tripMap.getOrDefault(lst.dest, new ArrayList<>()) ){
+                heap.add(new TripDetails(tripDetail.dest, lst.cost+tripDetail.cost, lst.stops+1));    
+            }            
+        }
+        
+        return -1;
+    }
+    
+    public void tripMapPublish(int[][] flights){
+        
+        tripMap = new HashMap<>();        
+        for (int[] flight : flights){        
+            List<TripDetails> tripList = tripMap.getOrDefault(flight[0],new ArrayList<>());           
+            tripList.add(new TripDetails(flight[1],flight[2],0));            
+            tripMap.put(flight[0],tripList);
+        }
+                
+    }
+    
+    public class TripDetails{
+        int dest;
+        int cost;
+        int stops;
+        
+        public TripDetails(int dest, int cost, int stops){                        
+            this.dest= dest;
+            this.cost= cost;
+            this.stops = stops;            
+        }        
+    }
+    
+    
+}
