@@ -1,0 +1,26 @@
+class Solution {
+    public List<List<Integer>> groupThePeople(int[] groupSizes) {      
+        HashMap <Integer, List<Integer>> hm = new HashMap <>();
+              
+        for (int i =0; i < groupSizes.length ; i++){                        
+            hm.putIfAbsent(groupSizes[i], new ArrayList<>());            
+            hm.get(groupSizes[i]).add(i);            
+        }
+        
+        List <List<Integer>> ans = new ArrayList<>();
+        
+        for ( int key: hm.keySet()){                            
+            List<Integer> curr = new ArrayList<>();            
+            for (int num : hm.get(key)){                
+                if (curr.size()==key){                    
+                       ans.add(curr);
+                       curr.clear();                                             
+                }
+                curr.add(num);               
+            }            
+            ans.add(curr);            
+        }
+        
+        return ans;
+    }
+}
