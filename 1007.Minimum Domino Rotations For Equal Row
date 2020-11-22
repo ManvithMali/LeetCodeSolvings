@@ -1,0 +1,24 @@
+class Solution {
+    public int minDominoRotations(int[] A, int[] B) {        
+        int minCount = Math.min(numSwaps(A[0], A, B), numSwaps(B[0], A, B));        
+        minCount = Math.min(minCount, numSwaps(A[0], B, A));
+        minCount = Math.min(minCount, numSwaps(B[0], B, A));            
+        return minCount == Integer.MAX_VALUE ? -1 : minCount;                        
+    }
+    
+    public int numSwaps(int val , int[] A, int [] B)
+    {
+        int swapCount =0;
+        
+        for ( int i =0; i < A.length ; i++)
+        {
+            if (A[i] != val && B[i] != val)
+                return Integer.MAX_VALUE;
+            else if (A[i] != val)
+                swapCount++;            
+        }
+        
+        return swapCount;    
+    }
+    
+}
