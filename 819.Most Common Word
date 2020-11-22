@@ -1,0 +1,26 @@
+class Solution {
+    public String mostCommonWord(String paragraph, String[] banned) {
+     
+        Set<String> bann = new HashSet<>();
+                
+        for (String str : banned)
+            bann.add(str.toLowerCase());
+        
+        HashMap <String, Integer> mp = new HashMap <>();                
+        for (String str : paragraph.replaceAll("[^a-zA-Z]", " ").toLowerCase().split(" "))
+        {
+            if (!bann.contains(str))   
+                mp.put(str,mp.getOrDefault(str,0)+1);            
+        }
+        
+        String res ="";
+        for (String str : mp.keySet()){
+            
+            if (res.equals("") || mp.get(str) > mp.get(res))
+                res=str;
+            
+        }
+        
+        return res;
+    }
+}819. Most Common Word
