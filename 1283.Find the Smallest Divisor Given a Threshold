@@ -1,0 +1,29 @@
+class Solution {
+    public int smallestDivisor(int[] nums, int threshold) {
+        
+        Arrays.sort(nums);
+        int len = nums.length;
+        
+        if (len == 1){
+            return (nums[0]+threshold-1)/threshold;
+        }        
+        
+        int left = 1;
+        int right = nums[len -1];
+        int divsr =0;
+        
+        while (left < right){
+            int divSum = 0;            
+            divsr= left+(right-left)/2;            
+            for(int i = 0 ; i < len ; i++){                
+                divSum+=((nums[i]+divsr-1)/divsr);
+            }
+            
+            if (divSum <= threshold)
+                right = divsr;                                
+            else if (divSum > threshold)
+                left = divsr+1;                
+        }
+        return left;
+    }
+}
