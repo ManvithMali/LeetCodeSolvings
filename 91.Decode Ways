@@ -1,0 +1,30 @@
+class Solution {
+    public int numDecodings(String s) {
+        
+        
+        int i=2;
+        int len = s.length();
+        int first = 1;
+        int sec = s.charAt(0) == '0' ? 0: 1;        
+        int sum =0;
+        
+        while ( i < len+1){
+            
+            if (s.charAt(i-1) != '0'){                
+                sum+=sec;
+            }
+                        
+            int num = Integer.parseInt(s.substring(i-2,i));
+            if( num >=10 && num <=26)
+            {
+                sum+=first;
+            }
+                        
+            first = sec;
+            sec = sum;
+            sum =0;            
+            i++;
+        }        
+        return sec;
+    }
+}
