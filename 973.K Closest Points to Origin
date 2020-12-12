@@ -1,0 +1,23 @@
+class Solution {
+    public int[][] kClosest(int[][] points, int K) {
+                    
+       PriorityQueue<int[]> hp = new PriorityQueue<>((a,b) -> ((b[0]*b[0])+(b[1]*b[1])) -((a[0]*a[0])+(a[1]*a[1]))); 
+        for (int[] point : points){            
+            hp.add(point);            
+            if(hp.size() > K){
+                hp.remove();
+            }            
+        }
+        
+        return hp.toArray( new int [K][2]);
+        
+        /*int [][] res = new int [K][2] ;
+        
+        for (int i =0; i < K ; i++ ){            
+            int [] curr = hp.poll();
+            res[i][0]= curr[0];
+            res[i][1]= curr[1];
+        }
+        return res;*/
+    }
+}
