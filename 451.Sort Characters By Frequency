@@ -1,0 +1,42 @@
+class Solution {
+    public String frequencySort(String s) {
+        
+        if (s.length() < 2)
+            return s;
+        
+        Map <Character, Integer> mp = new HashMap<>();
+                
+        for (char c: s.toCharArray()){
+            mp.put(c,mp.getOrDefault(c,0)+1);
+        }
+        
+        PriorityQueue<Character> pr = new PriorityQueue<>((a,b) -> -mp.get(a)+mp.get(b));
+        
+        for ( char c: mp.keySet()){
+            pr.add(c);
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        while (!pr.isEmpty())
+        {
+            char c = pr.poll();
+            
+            for ( int i =0; i < mp.get(c); i++){
+                sb.append(c);
+            }
+            
+            
+            //int cnt = mp.get(c);
+            
+            //String newString = String.join("", Collections.nCopies(cnt,""+c));
+            
+            //sb.append(String.join("", Collections.nCopies(cnt,""+c)));
+            
+            //sb.append(c,cnt);
+        }
+        
+        return sb.toString();
+        
+    }
+}
