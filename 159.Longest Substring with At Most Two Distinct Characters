@@ -1,0 +1,32 @@
+class Solution {
+    public int lengthOfLongestSubstringTwoDistinct(String s) {        
+        if(s.length() <1 )
+            return 0;
+        
+        HashMap<Character, Integer> hm = new HashMap<>();
+        
+        int left =0;
+        int right =0;        
+        int maxLen = Integer.MIN_VALUE;
+        
+        while (right < s.length()){              
+            char ch = s.charAt(right);
+            if(hm.containsKey(ch)){            
+                hm.put(ch, hm.get(ch)+1);
+            }else{
+                hm.put(ch,1);
+            }
+            while( (hm.keySet().size() >2)){                    
+                char tmp = s.charAt(left);
+                if(hm.get(tmp)-1 < 1)
+                    hm.remove(tmp);
+                else
+                    hm.put(tmp,hm.get(tmp)-1);
+                left++;
+            }
+            right++;
+            maxLen = Math.max(maxLen, (right-left));           
+        }
+        return maxLen;   
+    }
+}
